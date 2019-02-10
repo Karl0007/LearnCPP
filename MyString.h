@@ -35,7 +35,7 @@ namespace My{
 		const char & operator[](int) const; 
 
 		MyString & operator+= (const MyString &);
-		friend MyString operator+ (const MyString &,const MyString &);
+		const friend MyString operator+ (const MyString &,const MyString &);
 
 		friend bool operator< (const MyString &,const MyString &);
 		friend bool operator> (const MyString &,const MyString &);
@@ -43,6 +43,8 @@ namespace My{
 
 		friend std::ostream & operator << (std::ostream &,const MyString &);
 		friend std::istream & operator >> (std::istream &,MyString &);
+
+		operator long long() const;
 	};
 
 }

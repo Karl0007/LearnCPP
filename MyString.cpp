@@ -73,7 +73,7 @@ namespace My{
 
 	void MyString::set_input_mode(MyString::input_mode _mode){
 		m_input_mode = _mode;
-		cout << int (_mode) << endl;
+		// cout << int (_mode) << endl;
 	}
 
 	char & MyString::operator[] (int _pos){
@@ -104,7 +104,7 @@ namespace My{
 		return strcmp(_left.m_str,_right.m_str) == 0;
 	}
 	
-	MyString operator+ (const MyString & _left, const MyString & _right){
+	const MyString operator+ (const MyString & _left, const MyString & _right){
 		int _len = _left.size() + _right.size();
 		char * _tmp = new char[_len + 1];
 		strcpy(_tmp,_left.m_str);
@@ -125,8 +125,23 @@ namespace My{
 		if (MyString::m_input_mode == MyString::input_mode::LINE)
 			_is.getline(_tmp,MyString::m_max_input_num);
 		else
-			_is.getline(_tmp,MyString::m_max_input_num,' ');
+			_is >> _tmp;
 		_s = _tmp;
 		return _is;
+	}
+
+	MyString::operator long long () const{
+		long long tmp = 0;
+		long long op = 1;
+		for (int i = 0 ; i < m_len ; ++i){
+			if (m_str[i] >= '0' && m_str[i] <= '9'){
+				tmp*=10;
+				tmp+=m_str[i]-'0';
+			}
+			if (m_str[i] == '-' && tmp == 0){
+				op *= -1;
+			}
+		}
+		return tmp * op;
 	}
 }
